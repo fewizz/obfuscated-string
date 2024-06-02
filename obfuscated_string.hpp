@@ -1,17 +1,41 @@
 #pragma once
 
+/* Пример испрользования:
+
+#include <obfuscated_string.hpp>
+
+int main() {
+	std::cout << obfuscated_string<"Please, enter the password: ">{};
+
+	std::string pass; std::cin >> pass;
+
+	if(pass.c_str() == obfuscated_string<"pa$$w0rd">{}) {
+		std::cout << obfuscated_string<"Welcome">{};
+	}
+	else {
+		std::cout << obfuscated_string<"Password is wrong!">{};
+	}
+}
+
+*/
+
 #include <array>
 #include <string_view>
 #include <algorithm>
 #include <vector>
 #include <ranges>
 
+// Дополнительный заголовочный файл с алгоритмом обфускации/деобфускации
+// задается объявлением OBFUSCATION_ALGORITHM_HEADER
+// Например, OBFUSCATION_ALGORITHM_HEADER="xor.hpp"
 #ifndef OBFUSCATION_ALGORITHM_HEADER
 	#error Obfuscation algorithm header is not defined
 #endif
 
 #include OBFUSCATION_ALGORITHM_HEADER
 
+// Является ли соответствие исходного байта к обфусцированному
+// один к одному для всех байтов
 inline constexpr bool one_to_one_obfuscation = [] {
 	std::vector<char> tmp{};
 	for (int i = 0; i < 256; ++i) {
