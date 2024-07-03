@@ -62,7 +62,7 @@ template<std::output_iterator<char> OutputIterator>
 }
 
 template<std::input_iterator Iterator>
-[[gnu::always_inline]] constexpr char deobfuscate_char(Iterator& i) {
+[[gnu::always_inline]] char deobfuscate_char(Iterator& i) {
 	auto is_delimiter = [](char ch) {
 		return ch == '^' || ch == '~';
 	};
